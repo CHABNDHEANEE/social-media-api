@@ -20,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Collections;
 
 @RestController
@@ -36,6 +35,7 @@ public class AuthController {
     private JWTGenerator jwtGenerator;
     private IAuthenticationFacade authenticationFacade;
 
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
         if (userRepository.existsByUsername(registerDto.getUsername())) {
