@@ -55,10 +55,6 @@ public class UserEntity {
         friends.add(DtoMapper.userEntityToFriend(friend));
     }
 
-    public void addFollowing(UserEntity user) {
-        followings.add(DtoMapper.userEntityToFriend(user));
-    }
-
     public void deleteFollowing(UserEntity following) {
         followings.remove(DtoMapper.userEntityToFriend(following));
     }

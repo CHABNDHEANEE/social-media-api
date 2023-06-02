@@ -11,6 +11,7 @@ import java.util.Date;
 
 import static com.example.social.media.api.security.SecurityConstants.JWT_SECRET;
 
+@SuppressWarnings("SameReturnValue")
 @Component
 public class JWTGenerator {
 
