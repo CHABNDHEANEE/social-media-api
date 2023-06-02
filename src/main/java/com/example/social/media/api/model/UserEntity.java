@@ -78,4 +78,11 @@ public class UserEntity {
     public void rejectRequest(UserEntity sender) {
         pendingRequests.remove(DtoMapper.userEntityToFriend(sender));
     }
+
+    public void cancelRequest(UserEntity sender) {
+        Friend senderFriend = DtoMapper.userEntityToFriend(sender);
+
+        followers.remove(senderFriend);
+        pendingRequests.remove(senderFriend);
+    }
 }

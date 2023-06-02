@@ -42,7 +42,7 @@ public class UserController {
         return userService.rejectFriendRequest(username);
     }
 
-    @PostMapping("/friends/request/cancel")
+    @DeleteMapping("/friends/request/cancel")
     public ResponseEntity<String> cancelFriendRequest(@RequestHeader(FRIEND_USERNAME_HEADER) String username) {
         return userService.cancelFriendRequest(username);
     }

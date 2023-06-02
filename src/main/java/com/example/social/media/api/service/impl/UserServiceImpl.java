@@ -109,8 +109,7 @@ public class UserServiceImpl implements UserService {
             throw new FriendRequestException("You doesn't send a friend request to " + friendUsername);
         }
 
-        user.deleteFollowing(friend);
-        friend.rejectRequest(user);
+        friend.cancelRequest(user);
 
         log.info("{} cancel friend request to {}", user.getUsername(), friend.getUsername());
 
