@@ -11,9 +11,11 @@ import java.util.Date;
 
 import static com.example.social.media.api.security.SecurityConstants.JWT_SECRET;
 
+@SuppressWarnings("SameReturnValue")
 @Component
 public class JWTGenerator {
 
+    @SuppressWarnings("unused")
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date currentDate = new Date();
