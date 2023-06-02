@@ -74,8 +74,8 @@ public class UserEntity {
         Friend senderFriend = DtoMapper.userEntityToFriend(sender);
 
         friends.add(senderFriend);
-
         sender.addFriend(this);
+        followings.add(senderFriend);
         pendingRequests.remove(senderFriend);
     }
 

@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (checkFollower(user, friend)) {
-            acceptFriendRequest(friendUsername);
+            return acceptFriendRequest(friendUsername);
         }
 
         friend.sendRequest(user);
@@ -75,7 +75,6 @@ public class UserServiceImpl implements UserService {
         }
 
         user.acceptRequest(friend);
-        friend.addFriend(user);
 
         userRepository.save(user);
         userRepository.save(friend);
