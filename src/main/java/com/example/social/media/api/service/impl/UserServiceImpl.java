@@ -95,6 +95,9 @@ public class UserServiceImpl implements UserService {
 
         user.rejectRequest(friend);
 
+        userRepository.save(user);
+        userRepository.save(friend);
+
         log.info("{} reject friend request from {}", user.getUsername(), friend.getFriends());
 
         return new ResponseEntity<>("Friend request rejected!", HttpStatus.OK);
@@ -108,12 +111,37 @@ public class UserServiceImpl implements UserService {
         if (!checkFollower(friend, user)) {
             throw new FriendRequestException("You doesn't send a friend request to " + friendUsername);
         }
+        if (user.getFriends().contains(DtoMapper.userEntityToFriend(friend))) {
+            return removeFriend(friendUsername);
+        }
 
         friend.cancelRequest(user);
+
+        userRepository.save(user);
+        userRepository.save(friend);
 
         log.info("{} cancel friend request to {}", user.getUsername(), friend.getUsername());
 
         return new ResponseEntity<>("Your friend request is canceled!", HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> removeFriend(String friendUsername) {
+        UserEntity user = getCurrentUser();
+        UserEntity friend = getUserByUsername(friendUsername);
+
+        if (!user.getFriends().contains(DtoMapper.userEntityToFriend(friend))) {
+            throw new FriendRequestException(String.format("%s is not your friend!", friendUsername));
+        }
+
+        user.removeFriend(friend);
+
+        userRepository.save(user);
+        userRepository.save(friend);
+
+        log.info("{} deleted {} from friends list", user.getUsername(), friend.getUsername());
+
+        return new ResponseEntity<>("Friend successfully deleted!", HttpStatus.OK);
     }
 
     private UserEntity getCurrentUser() {

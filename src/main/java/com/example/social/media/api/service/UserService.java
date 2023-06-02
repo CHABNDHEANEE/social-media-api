@@ -15,4 +15,5 @@ public interface UserService {
     ResponseEntity<String> acceptFriendRequest(String username);
     ResponseEntity<String> rejectFriendRequest(String username);
     ResponseEntity<String> cancelFriendRequest(String username);
+    ResponseEntity<String> removeFriend(String username);
 }

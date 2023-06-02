@@ -51,10 +51,6 @@ public class UserEntity {
     inverseJoinColumns = @JoinColumn(name = "friend_id", referencedColumnName = "id"))
     private List<Friend> friends = new ArrayList<>();
 
-    public void addFriend(UserEntity friend) {
-        friends.add(DtoMapper.userEntityToFriend(friend));
-    }
-
     public void deleteFollowing(UserEntity following) {
         followings.remove(DtoMapper.userEntityToFriend(following));
     }
@@ -69,7 +65,7 @@ public class UserEntity {
     public void acceptRequest(UserEntity sender) {
         Friend senderFriend = DtoMapper.userEntityToFriend(sender);
 
-        friends.add(senderFriend);
+        addFriend(sender);
         sender.addFriend(this);
         followings.add(senderFriend);
         pendingRequests.remove(senderFriend);
@@ -84,5 +80,25 @@ public class UserEntity {
 
         followers.remove(senderFriend);
         pendingRequests.remove(senderFriend);
+    }
+
+    public void removeFriend(UserEntity sender) {
+        this.removeFriendFromList(sender);
+        sender.removeFriendFromList(this);
+
+        sender.removeFollower(this);
+        deleteFollowing(sender);
+    }
+
+    private void addFriend(UserEntity friend) {
+        friends.add(DtoMapper.userEntityToFriend(friend));
+    }
+
+    private void removeFriendFromList(UserEntity friend) {
+        friends.remove(DtoMapper.userEntityToFriend(friend));
+    }
+
+    private void removeFollower(UserEntity follower) {
+        followers.remove(DtoMapper.userEntityToFriend(follower));
     }
 }
