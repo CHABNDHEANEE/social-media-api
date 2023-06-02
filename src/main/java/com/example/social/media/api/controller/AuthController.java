@@ -38,6 +38,10 @@ public class AuthController {
     @SuppressWarnings("OptionalGetWithoutIsPresent")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+        Role admin = new Role(1, "ADMIN");
+        Role userRole = new Role(2, "USER");
+        roleRepository.save(admin);
+        roleRepository.save(userRole);
         if (userRepository.existsByUsername(registerDto.getUsername())) {
             return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
         }

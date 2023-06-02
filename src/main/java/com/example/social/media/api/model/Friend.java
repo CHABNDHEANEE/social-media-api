@@ -1,21 +1,24 @@
 package com.example.social.media.api.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "roles")
 @Data
+@Entity
+@Table(name = "users")
+@Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
-public class Role {
+@NoArgsConstructor
+public class Friend {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String name;
+    private String username;
+
 }
